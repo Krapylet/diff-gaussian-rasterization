@@ -62,6 +62,10 @@ __device__ glm::vec3 computeColorFromSH(int idx, int deg, int max_coeffs, const 
 	}
 	result += 0.5f;
 
+	result.x = 0;
+	result.y = 1;
+	result.z = 0;
+
 	// RGB colors are clamped to positive values. If values are
 	// clamped, we need to keep track of this for the backward pass.
 	clamped[3 * idx + 0] = (result.x < 0);
