@@ -258,7 +258,13 @@ __global__ void preprocessCUDA(int P, int D, int M,
 
 	// If colors have been precomputed, use them, otherwise convert
 	// spherical harmonics coefficients to RGB color.
-	if (colors_precomp == nullptr)
+	if (colors_precomp[idx * C + 0] >= 0 && colors_precomp[idx * C + 1] >= 0 && colors_precomp[idx * C + 0] >= 0)
+	{
+		rgb[idx * C + 0] = colors_precomp[idx * C + 0];
+		rgb[idx * C + 1] = colors_precomp[idx * C + 1];
+		rgb[idx * C + 2] = colors_precomp[idx * C + 2];
+	}
+	else
 	{
 		glm::vec3 result = computeColorFromSH(idx, D, M, (glm::vec3*)orig_points, *cam_pos, shs, clamped);
 		rgb[idx * C + 0] = result.x;
